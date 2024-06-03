@@ -53,15 +53,15 @@ public class ClassementEquipe{
                 con = Connect.connectDB();
                 estValid = false;
             }
-            string query = "SELECT * FROM ClassementEquipes";
+            string query = "SELECT * FROM v_equipe_classement";
                             Console.WriteLine(query);
             using(NpgsqlCommand cmd = new NpgsqlCommand(query, con)){
                 using(NpgsqlDataReader reader = cmd.ExecuteReader()){
                     while (reader.Read())
                     {
                         int idEquipe = reader.GetInt32(reader.GetOrdinal("id_equipe"));
-                        int total = reader.GetInt32(reader.GetOrdinal("total_points_equipe"));
-                        int rang = reader.GetInt32(reader.GetOrdinal("classement"));
+                        int total = reader.GetInt32(reader.GetOrdinal("points_equipe"));
+                        int rang = reader.GetInt32(reader.GetOrdinal("position"));
                         Utilisateur c  = Utilisateur.getById(idEquipe);
                         classement = new ClassementEquipe(c, total, rang);
                         classements.Add(classement);

@@ -53,7 +53,7 @@ public class Classement{
                 con = Connect.connectDB();
                 estValid = false;
             }
-            string query = "SELECT * FROM VueClassementEtape";
+            string query = "SELECT * FROM v_classement_cle";
                             Console.WriteLine(query);
             using(NpgsqlCommand cmd = new NpgsqlCommand(query, con)){
                 using(NpgsqlDataReader reader = cmd.ExecuteReader()){
@@ -61,7 +61,7 @@ public class Classement{
                     {
                         int idCoureur = reader.GetInt32(reader.GetOrdinal("id_coureur"));
                         int total = reader.GetInt32(reader.GetOrdinal("total_points_coureur"));
-                        int rang = reader.GetInt32(reader.GetOrdinal("classement_general"));
+                        int rang = reader.GetInt32(reader.GetOrdinal("position"));
                         Coureur c  = Coureur.getById(idCoureur);
                         classement = new Classement(c, total, rang);
                         classements.Add(classement);
