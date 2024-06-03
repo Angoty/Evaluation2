@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Course - @ViewData["Profil"]</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="~/vendors/images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="~/vendors/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="~/vendors/images/favicon-16x16.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="~/vendors/styles/core.css">
+	<link rel="stylesheet" type="text/css" href="~/vendors/styles/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="~/vendors/styles/style.css">
+</head>
+<body>
+    <div class="header">
+		<div class="header-left">
+			<div class="menu-icon dw dw-menu"></div>
+			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
+			<div class="header-search">
+				<form>
+					<div class="form-group mb-0">
+						<i class="dw dw-search2 search-icon"></i>
+						<input type="text" class="form-control search-input" placeholder="Search Here">
+						<div class="dropdown">
+							<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
+								<i class="ion-arrow-down-c"></i>
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="header-right">
+			<div class="user-info-dropdown">
+				<div class="dropdown">
+					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+						<span class="user-name"></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+						<a class="dropdown-item" href="@Url.Action("Deconnexion", "Auth")"><i class="dw dw-logout"></i>Se déconnecter</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="left-side-bar">
+		<div class="brand-logo">
+            @* <img src="~/assets/images/dark_logo1.png" alt="" class="light-logo" width="100" style="margin-left:55px;"> *@
+			<div class="close-sidebar" data-toggle="left-sidebar-close">
+				<i class="ion-close-round"></i>
+			</div>
+		</div>
+        <br><br><br>
+		<div class="menu-block customscroll">
+			<div class="sidebar-menu">
+				<ul id="accordion-menu">
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-library"></span><span class="mtext">Gestion des données</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="@Url.Action("Reinitialiser", "Home")">Réinitialiser</a></li>
+							<li><a href="@Url.Action("ImportPoints", "Home")">Import des points</a></li>
+							<li><a href="@Url.Action("Import", "Home")">Import des données</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-list1"></span><span class="mtext">Etapes</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="@Url.Action("Index", "Home")">Liste des étapes</a></li>
+							<li><a href="index2.html">Dashboard style 2</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-list3"></span><span class="mtext">Classement</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="@Url.Action("ClassementEtape", "Home")">Classement général</a></li>
+							<li><a href="@Url.Action("ClassementEquipe", "Home")">Classement par équipe</a></li>
+						</ul>
+					</li>
+					<li>
+						<div class="dropdown-divider"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="main-container">
+		@RenderBody()
+	</div>
+    <script src="~/vendors/scripts/core.js"></script>
+	<script src="~/vendors/scripts/script.min.js"></script>
+	<script src="~/vendors/scripts/process.js"></script>
+	<script src="~/vendors/scripts/layout-settings.js"></script>	
+    @* @await RenderSectionAsync("Scripts", required: false) *@
+</body>
+</html>

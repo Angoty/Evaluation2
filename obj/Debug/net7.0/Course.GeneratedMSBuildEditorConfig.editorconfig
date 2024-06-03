@@ -1,0 +1,93 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Course
+build_property.RootNamespace = Course
+build_property.ProjectDir = F:\Angoty\Itu\L3\Evaluation\Evaluation2\Today\Course\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = F:\Angoty\Itu\L3\Evaluation\Evaluation2\Today\Course
+build_property._RazorSourceGeneratorDebug = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Auth/LoginAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbkFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Auth/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Equipe/ClassementEquipe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXF1aXBlXENsYXNzZW1lbnRFcXVpcGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Equipe/ClassementEtape.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXF1aXBlXENsYXNzZW1lbnRFdGFwZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Equipe/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXF1aXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Equipe/ListeCoureurs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXF1aXBlXExpc3RlQ291cmV1cnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Home/ClassementEquipe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDbGFzc2VtZW50RXF1aXBlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Home/ClassementEtape.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDbGFzc2VtZW50RXRhcGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Home/ImportDonnees.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbXBvcnREb25uZWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Home/ImportPoints.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbXBvcnRQb2ludHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Shared/_LayoutEquipe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRFcXVpcGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Shared/_LayoutLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/Angoty/Itu/L3/Evaluation/Evaluation2/Today/Course/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-fxstxymgrq

@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Import des données";
+    ViewData["Profil"] = "Admin";
+}
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix">
+                <div class="pull-left">
+                    <h4 class="text-blue h4">Import des données</h4>
+                </div>
+            </div>
+            <form action="@Url.Action("TraitementImport", "Home")"  method="post" enctype = "multipart/form-data">
+                <div class="form-group">
+                    <label>Import Etapes:</label>
+                    <input type="file" class="form-control-file form-control height-auto" name="etape">
+                </div>
+                <div class="form-group">
+                    <label>Import Résultat: </label>
+                    <input type="file" class="form-control-file form-control height-auto" name="resultat">
+                </div>
+                <button type="submit" class="btn btn-primary">Importer</button>
+            </form>
+        </div>
+    </div>
+</div>

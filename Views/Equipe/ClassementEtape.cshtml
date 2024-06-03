@@ -1,0 +1,44 @@
+@{
+   ViewData["Title"] = "Classement étapes";
+    ViewData["Profil"] = "Equipe";
+    Layout = ViewBag.Layout ?? "_Layout";
+}
+
+@model List<Classement>
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="card-box mb-30">    
+            <div class="pd-20">
+                <h4 class="text-blue h4">Classement général des coureurs</h4>
+            </div>    
+            <form action="@Url.Action("Affectation", "Equipe")" method="post" id="myForm">
+                <table class="data-table table stripe hover nowrap" >
+                    <thead>
+                        <tr style="color:rgb(4, 4, 22)">
+                            <th>Rang</th>
+                            <th>Numero Dossard </th>
+                            <th>Nom</th>
+                            <th>Equipe</th>
+                            <th>Categorie</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var classement in @Model){
+                            <tr>
+                                <td>@classement.rang</td>
+                                <td>@classement.coureur.numDossard</td>
+                                <td>@classement.coureur.nom</td>
+                                <td>@classement.coureur.equipe.nom</td>
+                                <td>@classement.points</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <input type="hidden" name="coureur" id="coureur" />
+                <input type="hidden" name="etape" id="etapeId" />
+            </form>
+        </div>
+    </div>
+</div>
+

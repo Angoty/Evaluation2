@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "Liste étapes";
+    ViewData["Profil"] = "Equipe";
+    Layout = ViewBag.Layout ?? "_Layout"; // Utilisez le layout par défaut sauf si ViewBag.Layout est défini
+}
+@model EtapeViewModel
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="card-box mb-30">    
+            <div class="pd-20">
+                <h4 class="text-blue h4">Liste des étapes</h4>
+            </div>    
+            <form action="@Url.Action("Affectation", "Equipe")" method="post" id="myForm">
+                <table class="data-table table stripe hover nowrap" >
+                    <thead>
+                        <tr style="color:rgb(4, 4, 22)">
+                            <th>Etape</th>
+                            <th>Kilometre </th>
+                            <th>Heure de depart</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var etape in @Model.etapes){
+                            <tr>
+                                <td>@etape.intitule</td>
+                                <td>@etape.kilometre</td>
+                                <td>@etape.heureDepart.ToString("HH:mm:ss")</td>
+                                <td>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Medium-modal" onclick="affecterEtape('@etape.idEtape')">Affecter</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <input type="hidden" name="coureur" id="coureur" />
+                <input type="hidden" name="etape" id="etapeId" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Coureurs affectés pour les @Model.utilisateur.nom</h4>
+            </div>
+            <div class="modal-body">
+                <select class="form-control" id="selectCoureur">
+                    @foreach(var coureur in @Model.coureurs){
+                        <option value="@coureur.idCoureur">@coureur.nom</option>
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitForm()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var etapeId;
+    function affecterEtape(id) {
+        etapeId = id;
+    }
+
+    function submitForm() {
+        var selectedCoureur = document.getElementById("selectCoureur").value;        
+        if (!etapeId) {
+            alert("Veuillez sélectionner une étape avant de continuer.");
+            return;
+        }
+        document.getElementById("etapeId").value = etapeId;
+        document.getElementById("coureur").value = selectedCoureur;
+        document.getElementById("myForm").submit();
+    }
+</script>

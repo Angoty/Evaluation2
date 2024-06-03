@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Classement équipes";
+    ViewData["Profil"] = "Equipe";
+    Layout = ViewBag.Layout ?? "_Layout";
+}
+
+@model List<ClassementEquipe>
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="card-box mb-30">    
+            <div class="pd-20">
+                <h4 class="text-blue h4">Classement par équipes</h4>
+            </div>    
+            <form action="@Url.Action("Affectation", "Equipe")" method="post" id="myForm">
+                <table class="data-table table stripe hover nowrap" >
+                    <thead>
+                        <tr style="color:rgb(4, 4, 22)">
+                            <th>Rang</th>
+                            <th>Nom</th>
+                            <th>Total points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var classement in @Model){
+                            <tr>
+                                <td>@classement.rang</td>
+                                <td>@classement.equipe.nom</td>
+                                <td>@classement.points</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
