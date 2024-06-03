@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Course.Models.Imports;
 using Course.Models;
-using Course.Utils.Controllers.Sessions;
 using Newtonsoft.Json;
 namespace Course.Controllers;
 

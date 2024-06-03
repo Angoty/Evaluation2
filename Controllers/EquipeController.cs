@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Course.Models;
-using Course.Utils.Controllers.Sessions;
 using Newtonsoft.Json;
 namespace Course.Controllers;
 
