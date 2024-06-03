@@ -1,5 +1,5 @@
-CREATE DATABASE course_a_pied2;
-\c course_a_pied2;
+CREATE DATABASE course_a_pied;
+\c course_a_pied;
  
 CREATE TABLE Genre(
     id_genre SERIAL PRIMARY KEY,
@@ -23,7 +23,7 @@ ALTER TABLE Utilisateur RENAME COLUMN id_admin TO id_utilisateur;
 
 CREATE TABLE Etape(
     id_etape SERIAL PRIMARY KEY,
-    intitule VARCHAR(70),
+    intitule VARCHAR(70) UNIQUE,
     nb_coureur INTEGER,
     kilometre DOUBLE PRECISION,
     heure_depart TIMESTAMP,
@@ -67,7 +67,7 @@ CREATE TABLE TempsCoureur(
 
 CREATE TABLE Point(
     id_point SERIAL PRIMARY KEY,
-    intitule VARCHAR(30) UNIQUE,
+    intitule VARCHAR(30),
     valeur INTEGER
 );
 
@@ -79,35 +79,6 @@ CREATE TABLE PointCoureur(
     FOREIGN KEY (points) REFERENCES Point(id_point)
 );
 
-CREATE TABLE ImportEtape(
-    etape VARCHAR(200),
-    kilometre VARCHAR(200),
-    nb_coureur VARCHAR(200),
-    rang_etape VARCHAR(200),
-    date_depart VARCHAR(200),
-    heure_depart VARCHAR(200)
-);
-
-
-CREATE TABLE ImportResultat(
-    rang_etape VARCHAR(200),
-    num_dossard VARCHAR(200),
-    nom VARCHAR(200),
-    genre VARCHAR(200),
-    date_naissance VARCHAR(200),
-    equipe VARCHAR(200),
-    arrivee VARCHAR(200)
-);
-
-CREATE TABLE ImportPoint(
-    classement VARCHAR(200),
-    points VARCHAR(200)
-);
-INSERT INTO Genre(intitule) VALUES('M'),('F');
-INSERT INTO Profil(intitule) VALUES('Equipe');
-
-UPDATE Genre SET intitule='M' WHERE id_genre=1;
-UPDATE Genre SET intitule='F' WHERE id_genre=2;
 
 CREATE TABLE Classement (
     id_temps INTEGER PRIMARY KEY,
