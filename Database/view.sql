@@ -72,3 +72,57 @@ CREATE OR REPLACE VIEW v_points_categorie AS(
             JOIN Coureur c ON 
 
 );
+
+CREATE OR REPLACE VIEW v_classement_etape AS (
+    SELECT dense_rank() OVER (ORDER BY v.total_points_coureur DESC) AS position,
+           v.total_points_coureur,
+           c.*
+    FROM v_classement_general v 
+    JOIN Coureur c ON v.id_coureur = c.id_coureur
+);
+
+
+
+CREATE OR REPLACE VIEW v_classement_equipe_Etape1 AS(
+    SELECT  e.intitule,e.kilometre,e.heure_depart,e.rang_etape,t.*
+    FROM Etape e 
+        LEFT JOIN TempsCoureur t ON e.id_etape=t.id_etape
+);
+
+CREATE OR REPLACE VIEW v_classement_equipe_Etape1 AS(
+    SELECT 
+        DENSE_RANK() OVER (PARTITION BY id_etape ORDER BY heure_arrivee ASC) AS position, 
+        c.*
+        FROM v_etape_coureur c
+);
+
+CREATE OR REPLACE VIEW v_classement_equipe_Etape2 AS(
+    SELECT 
+        v.*,p.valeur points
+        FROM v_classement_equipe_Etape1 v
+        JOIN point p ON p.intitule=v.position::VARCHAR(30) 
+);
+
+CREATE OR REPLACE VIEW v_coureur_categorie1 AS(
+    SELECT c.id_categorie,v.*
+        FROM v_coureur_categorie v 
+        JOIN CategorieCoureur c ON c.id_categorie_coureur=v.id_categorie_coureur
+);
+
+CREATE OR REPLACE VIEW v_classement_categorie3 AS(
+    SELECT v.id_equipe,V.id_categorie,sum(total_points_coureur) total_points,
+        DENSE_RANK() OVER (PARTITION BY id_categorie ORDER BY sum(total_points_coureur) ASC) AS position
+        FROM v_coureur_categorie1 v 
+
+        JOIN v_classement_general v1 ON v1.id_coureur=v.id_coureur
+        GROUP BY  v.id_equipe,V.id_categorie
+) 
+SELECT v.*, c.id_categorie
+FROM v_etape_coureur v 
+    JOIN CategorieCoureur c ON c.id_coureur=v.id_coureur
+
+SELECT id_equipe,cc.id_categorie,sum(total_points_coureur)
+    FROM v_classement_general v
+    JOIN CategorieCoureur cc ON cc.id_coureur=v.id_coureur 
+    JOIN Coureur c on c.id_coureur=v.id_coureur
+GROUP BY id_equipe,cc.id_categorie

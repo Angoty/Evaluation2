@@ -7,8 +7,8 @@ public class ImportPoint{
 
     public ImportPoint(){}
     public ImportPoint(string classement, string valeur){
-        this.classement=classement;
-        this.valeur=valeur;
+        this.classement=classement.Trim();
+        this.valeur=valeur.Trim();
     }
 
     public static void insertDirectTemporaire(List<ImportPoint> listes,NpgsqlConnection con,NpgsqlTransaction transaction)

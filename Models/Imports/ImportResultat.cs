@@ -12,13 +12,13 @@ public class ImportResultat{
 
     public ImportResultat(){}
     public ImportResultat( string etapeRang, string numDossard, string nom, string genre, string dateNaissance, string equipe, string arrivee){
-        this.etapeRang=etapeRang;
-        this.numDossard=numDossard;
-        this.nom=nom;
-        this.genre=genre;
-        this.dateNaissance=dateNaissance;
-        this.equipe=equipe;
-        this.arrivee=arrivee;
+        this.etapeRang=etapeRang.Trim();
+        this.numDossard=numDossard.Trim();
+        this.nom=nom.Trim();
+        this.genre=genre.Trim();
+        this.dateNaissance=dateNaissance.Trim();
+        this.equipe=equipe.Trim();
+        this.arrivee=arrivee.Trim();
     }
 
     public static void insertDirectTemporaire(List<ImportResultat> listes,NpgsqlConnection con,NpgsqlTransaction transaction)
