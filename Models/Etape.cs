@@ -239,4 +239,37 @@ public class Etape{
         return etape;
     }
 
+    public List<Etape> getAllEtape(NpgsqlConnection con=null)
+    {
+        bool estValid = false;
+        Etape  etape=null;
+        List<Etape> etapes = new List<Etape>();
+        try{
+            if(con==null){
+                estValid=true;
+                con=Connect.connectDB();
+            }
+            string query="SELECT * FROM etape WHERE etat=5";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int idEtape = reader.GetInt32(reader.GetOrdinal("id_etape"));
+                string intitule = reader.GetString(reader.GetOrdinal("intitule"));
+                int nbCoureur = reader.GetInt32(reader.GetOrdinal("nb_coureur"));
+                double kilometre=reader.GetDouble(reader.GetOrdinal("kilometre"));
+                DateTime heure = reader.GetDateTime(reader.GetOrdinal("heure_depart"));
+                int rang = reader.GetInt32(reader.GetOrdinal("rang_etape"));
+                int etat = reader.GetInt32(reader.GetOrdinal("etat"));
+                etape =new Etape(idEtape,  intitule, nbCoureur, kilometre, heure, rang, etat);
+                etapes.Add(etape);
+            }
+            reader.Close();
+        }catch (Exception e){
+            throw e; 
+        }finally{
+            if(estValid) con.Close();
+        }
+        return etapes;
+    }
 }

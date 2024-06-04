@@ -6,6 +6,7 @@ namespace Course.Models
         public Utilisateur utilisateur {get; set;}
         public List<Coureur> coureurs {get; set;}
         public List<TempsCoureur> temps {get; set;}
+        public List<Utilisateur> equipes {get; set;}
 
         public EtapeViewModel(List<Etape> etapes,Utilisateur utilisateur){
             this.etapes=etapes;
@@ -28,5 +29,9 @@ namespace Course.Models
             this.utilisateur=utilisateur;
             this.temps=temps;
         } 
+        public EtapeViewModel(List<Etape> etapes,List<Utilisateur> equipes){
+            this.etapes=etapes;
+            this.equipes=equipes;
+        }
     }
 }

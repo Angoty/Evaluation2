@@ -108,6 +108,8 @@ public class HomeController : Controller
         return View("ImportPoints");
     }
 
+    
+
     public IActionResult Import(IFormFile etape)
     {
         if (HttpContext.Session.GetString("admin") == null)
@@ -230,6 +232,69 @@ public class HomeController : Controller
         return RedirectToAction("ImportPoints","Home");
     }
 
+    public IActionResult GénérerCategorie(){
+        Coureur.ok();
+        return RedirectToAction("Index", "Home");
+    }
+
+    public IActionResult ClassementCategorie(string categorie){
+        List<Categorie> categories = new Categorie().getAll();
+        List<ClassementCategorie> listes = new ClassementCategorie().GetClassementCategorieFiltree(categorie);
+        return View(new ClassementCategorieViewModel(categories, listes, categorie));
+    }
+
+    public IActionResult ListePenalite(){
+        List<Penalite> penalite = new Penalite().getAll();
+        return View("Penalite", penalite);
+    }
+
+    // public IActionResult ListeEtapes(){
+        
+    //     return View(new EtapeViewModel(etapes, equipes));
+    // }
+
+    public IActionResult ListeEtapes()
+    {
+        if (HttpContext.Session.GetString("admin") == null)
+        {
+            return RedirectToAction("LoginAdmin", "Auth");
+        }
+        List<Etape> etapes = new Etape().getAllEtape();
+        List<Utilisateur> equipes = new Utilisateur().getAll(new Utilisateur{idUtilisateur=2});
+        return View(new EtapeViewModel(etapes, equipes));
+    }
+
+    [HttpPost]
+    public IActionResult NouveauPenalite(IFormCollection form)
+    {
+        if (HttpContext.Session.GetString("admin") == null)
+        {
+            return RedirectToAction("LoginAdmin", "Auth");
+        }
+        int idEtape=int.Parse(form["etape"]);
+        int idEquipe=int.Parse(form["equipe"]);
+        DateTime penalite = DateTime.Parse(form["penalite"]);
+        new Penalite().insertPenalite(idEtape, idEquipe, penalite);
+        return RedirectToAction("ListeEtapes", "Home");
+    }
+
+    [HttpPost]
+    public IActionResult SupprimerPenalite(IFormCollection form)
+    {
+        if (HttpContext.Session.GetString("admin") == null)
+        {
+            return RedirectToAction("LoginAdmin", "Auth");
+        }
+        int etapeId= int.Parse(form["penaliteEtape"]);
+        new Penalite().deletePenalite(etapeId);
+        return RedirectToAction("ListePenalite", "Home");
+    }
+
+    public IActionResult Supprimer(int etapeId)
+    {
+        Penalite id = Penalite.getById(etapeId);
+        return Json(id);
+    }
 
 
 
