@@ -26,6 +26,8 @@
         });
     }
 
+    
+
     function submitForm() {
         var selectedCoureur = document.getElementById("selectCoureur").value;
         var tempsLoc = document.getElementById("tempsLoc").value;
@@ -65,3 +67,6 @@
 		});
 	}
 
+    
+
+    

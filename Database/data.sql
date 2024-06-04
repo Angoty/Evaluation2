@@ -6,6 +6,8 @@ INSERT INTO Profil(intitule)
 
 INSERT INTO Utilisateur(nom, email, mot_de_passe, id_profil)
 VALUES ('Angoty Fitia', 'angotyrabarijaona@gmail.com', 'angoty', 1);
+
+INSERT INTO Categorie(intitule)VALUES('Homme'),('Femme'),('Junior');
 --        ('Equipe A', 'equipe.a@gmail.com', 'equipeA', 2),
 --        ('Equipe B', 'equipe.b@gmail.com', 'equipeB', 2),
 --        ('Equipe C', 'equipe.c@gmail.com', 'equipe3', 2);

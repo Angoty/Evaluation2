@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Classement équipes";
+    ViewData["Profil"] = "Admin";
+}
+
+@model ClassementCategorieViewModel
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="card-box mb-30">    
+            <div class="pd-20">
+                <h4 class="text-blue h4">Classement Général par équipe</h4>
+            </div>    
+            <div class="col-md-3" style = "margin-left:650px">
+				<div class="form-group row">
+					<div class="col-sm-12 col-md-10">
+				 		<form  id="filterForm"  action="@Url.Action("ClassementCategorie", "Home")"  method="get">
+							<button type="submit" class="btn btn-outline-primary" style="margin-left:-300px;float:left;" onclick="submitForm()">Voir</button>
+							<div style="margin-left:150px">
+							<select class="custom-select" style="width:150px; margin-left:-170px; float:left;" name="categorie">
+                                <option value="">Tous</option>
+									@foreach(var categorie in @Model.categories){
+										<option value="@categorie.idCategorie.ToString()" id="categorie" selected>@categorie.intitule</option>
+									}
+							</select>
+						</form>
+							<input type="text" class="form-control" style="margin-left:-10px;width:210px; float:left;" placeholder="Search Here">
+							<button type="submit" class="btn btn-primary" style="margin-left:205px;margin-top:-70px;">
+								<i class="dw dw-search2 search-icon"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+            <form action="@Url.Action("Affectation", "Equipe")" method="post" id="myForm">
+                <table class="data-table table stripe hover nowrap" >
+                    <thead>
+                        <tr style="color:rgb(4, 4, 22)">
+                            <th>Rang</th>
+                            <th>Equipe</th>
+                            <th>Point</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var classement in @Model.classements){
+                            <tr>
+                                <td>@classement.rang</td>
+                                <td>@classement.equipe.nom</td>
+                                <td>@classement.points</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
