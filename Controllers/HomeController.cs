@@ -3,7 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Course.Models.Imports;
 using Course.Models;
 using Newtonsoft.Json;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.IO.Image;
+using System.IO;
 namespace Course.Controllers;
+
 
 public class HomeController : Controller
 {
@@ -37,6 +46,63 @@ public class HomeController : Controller
         }
         List<Coureur> coureurs = new Etape().getAllCoureur(etapeId);
         return Json(coureurs);
+    }
+
+    public IActionResult Liste()
+    {
+        if (HttpContext.Session.GetString("admin") == null)
+        {
+            return RedirectToAction("LoginAdmin", "Auth");
+        }
+        if (TempData.ContainsKey("Erreur")) ViewBag.ErreurReset = TempData["Erreur"].ToString();
+        if (TempData.ContainsKey("Succes")) ViewBag.SuccesReset = TempData["Succes"].ToString();
+
+        string user=HttpContext.Session.GetString("admin");
+        Utilisateur utilisateur=JsonConvert.DeserializeObject<Utilisateur>(user);
+        List<Etape> etapes = new Etape().getAllEtapes();
+        return View(new EtapeViewModel(etapes, utilisateur));
+    }
+
+    public IActionResult GetClassementEtape(int idEtape){
+        Etape e = Etape.getById(idEtape);
+        List<ClassementEtape> classements = new ClassementEtape().GetClassementEtape(idEtape);
+        return View("ClassementEtapes", new EtapeViewModel(e, classements));
+    }
+
+    public IActionResult ClassementEquipe(){
+        List<ClassementEquipe> classement = new ClassementEquipe().GetClassementEquipe();
+        return View(classement);
+    }
+
+    public IActionResult GetEquipeGagnante(){
+        ClassementEquipe classements = new ClassementEquipe().GetEquipeGagnant();
+        string nomFichier = "equipe_gagnante";
+        string directory = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot\\export\\pdf");
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+        string filePath = Path.Combine(directory,nomFichier);
+        
+       using (MemoryStream ms = new MemoryStream())
+        {
+            PdfWriter writer = new PdfWriter(ms);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+            document.SetMargins(50, 50, 50, 50);
+
+           Paragraph header = new Paragraph("L'équipe gagnante est: "+classements.equipe.nom+ " avec score: "+classements.points)
+                .SetFont(PdfFontFactory.CreateFont("Helvetica-Bold"))
+                .SetFontSize(16f)
+                .SetTextAlignment(TextAlignment.CENTER);
+
+            document.Add(header);
+                document.Close();
+
+
+            byte[] pdfBytes = ms.ToArray();
+            return File(pdfBytes, "application/pdf", nomFichier + ".pdf");
+        }
     }
 
     [HttpPost]
@@ -73,15 +139,6 @@ public class HomeController : Controller
         return View(classements);
     }
 
-    public IActionResult ClassementEquipe(){
-        if (HttpContext.Session.GetString("admin") == null)
-        {
-            return RedirectToAction("LoginAdmin", "Auth");
-        }
-        List<ClassementEquipe> classements = new ClassementEquipe().GetClassementEquipe();
-        return View(classements);
-    }
-
     public IActionResult Reinitialiser()
     {
         try{
@@ -107,6 +164,8 @@ public class HomeController : Controller
         if (TempData.ContainsKey("ErreurImport")) ViewBag.ErreurImport = TempData["ErreurImport"].ToString();
         return View("ImportPoints");
     }
+
+    
 
     public IActionResult Import(IFormFile etape)
     {
@@ -230,6 +289,69 @@ public class HomeController : Controller
         return RedirectToAction("ImportPoints","Home");
     }
 
+    public IActionResult GénérerCategorie(){
+        Coureur.ok();
+        return RedirectToAction("Index", "Home");
+    }
+
+    public IActionResult ClassementCategorie(string categorie){
+        List<Categorie> categories = new Categorie().getAll();
+        List<ClassementCategorie> listes = new ClassementCategorie().GetClassementCategorieFiltree(categorie);
+        return View(new ClassementCategorieViewModel(categories, listes, categorie));
+    }
+
+    public IActionResult ListePenalite(){
+        List<Penalite> penalite = new Penalite().getAll();
+        return View("Penalite", penalite);
+    }
+
+    // public IActionResult ListeEtapes(){
+        
+    //     return View(new EtapeViewModel(etapes, equipes));
+    // }
+
+    public IActionResult ListeEtapes()
+    {
+        if (HttpContext.Session.GetString("admin") == null)
+        {
+            return RedirectToAction("LoginAdmin", "Auth");
+        }
+        List<Etape> etapes = new Etape().getAllEtape();
+        List<Utilisateur> equipes = new Utilisateur().getAll(new Utilisateur{idUtilisateur=2});
+        return View(new EtapeViewModel(etapes, equipes));
+    }
+
+    [HttpPost]
+    public IActionResult NouveauPenalite(IFormCollection form)
+    {
+        if (HttpContext.Session.GetString("admin") == null)
+        {
+            return RedirectToAction("LoginAdmin", "Auth");
+        }
+        int idEtape=int.Parse(form["etape"]);
+        int idEquipe=int.Parse(form["equipe"]);
+        DateTime penalite = DateTime.Parse(form["penalite"]);
+        new Penalite().insertPenalite(idEtape, idEquipe, penalite);
+        return RedirectToAction("ListeEtapes", "Home");
+    }
+
+    [HttpPost]
+    public IActionResult SupprimerPenalite(IFormCollection form)
+    {
+        if (HttpContext.Session.GetString("admin") == null)
+        {
+            return RedirectToAction("LoginAdmin", "Auth");
+        }
+        int etapeId= int.Parse(form["penaliteEtape"]);
+        new Penalite().deletePenalite(etapeId);
+        return RedirectToAction("ListePenalite", "Home");
+    }
+
+    public IActionResult Supprimer(int etapeId)
+    {
+        Penalite id = Penalite.getById(etapeId);
+        return Json(id);
+    }
 
 
 

@@ -28,6 +28,7 @@ public class ImportPoint{
     public static void insertPoint(NpgsqlConnection con,NpgsqlTransaction transaction){
         string sql="INSERT INTO point(intitule, valeur) "+
                     "SELECT i.classement,i.points::integer from ImportPoint i ON CONFLICT DO NOTHING";
+        Console.WriteLine(sql);
         using (NpgsqlCommand command=new NpgsqlCommand(sql,con,transaction))
         {
             command.ExecuteNonQuery();

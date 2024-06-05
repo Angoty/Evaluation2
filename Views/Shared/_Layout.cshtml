@@ -67,11 +67,11 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-list1"></span><span class="mtext">Etapes</span>
+							<span class="micon dw dw-list1"></span><span class="mtext">Gestion des étapes</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="@Url.Action("Index", "Home")">Liste des étapes</a></li>
-							<li><a href="index2.html">Dashboard style 2</a></li>
+							<li><a href="@Url.Action("ListePenalite", "Home")">Pénalité</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -80,7 +80,9 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="@Url.Action("ClassementEtape", "Home")">Classement général</a></li>
+							<li><a href="@Url.Action("Liste", "Home")">Points étapes</a></li>
 							<li><a href="@Url.Action("ClassementEquipe", "Home")">Classement par équipe</a></li>
+							<li><a href="@Url.Action("ClassementCategorie", "Home")">Classement par équipe categorie</a></li>
 						</ul>
 					</li>
 					<li>

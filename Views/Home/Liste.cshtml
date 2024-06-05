@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Liste étapes";
     ViewData["Profil"] = "Admin";
 }
@@ -11,7 +11,6 @@
             </div>
             <a href="@Url.Action("GénérerCategorie", "Home")"><button type="submit" class="btn btn-primary" style="margin-left:850px; margin-top:-70px">Générer</button></a>
             <div class="pb-20">
-                <form action="@Url.Action("Affectation", "Home")" method="post" id="myForm">
                     <table class="data-table table stripe hover nowrap">
                         <thead>
                             <tr style="color:rgb(4, 4, 22)">
@@ -29,20 +28,13 @@
                                     <td>@liste.heureDepart.ToString("HH:mm:ss")</td>
                                     <td>
                                         <div class="dropdown">
-                                            <form action="@Url.Action("FinEtape", "Home")" method="post"  id="myFormulaire">
-                                                <button type="button" data-toggle="modal" data-target="#Medium-modal" class="btn btn-primary" onclick="affecterEtape('@liste.idEtape')">Affecter </button>
-                                                <button type="button" class="btn btn-success" onclick="finEtape('@liste.idEtape')">Fin </button>
-                                            </form>
+                                            <a href="@Url.Action("GetClassementEtape", "Home", new{idEtape=@liste.idEtape})">Voir</a>
                                         </div>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                    <input type="hidden" name="coureur" id="coureur" />
-                    <input type="hidden" name="etape" id="etapeId" />
-                    <input type="hidden" name="temps" id="temps" />
-                </form>
             </div>
         </div>
     </div>
@@ -59,25 +51,3 @@
         </div>
     }
 </div>
-<div class="modal" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="text-blue" id="myLargeModalLabel">Temps du coureur</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    <b><label sty>Coueur: </label></b>
-                    <select class="form-control" id="selectCoureur">
-                    </select>
-                </p>
-                <b><label>Temps d'arrivée: </label></b>
-                <input class="form-control" type="datetime-local" id="tempsLoc" step="1">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitForm()">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="~/js/affectationTemps.js"></script>

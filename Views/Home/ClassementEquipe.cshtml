@@ -3,15 +3,23 @@
     ViewData["Profil"] = "Admin";
 }
 
+@using Newtonsoft.Json
+@{ 
+    var json = JsonConvert.SerializeObject(Model);
+}
+<div class="bg-white pd-20 card-box mb-30">
+    <div id="chart5"></div>
+</div>
+
 @model List<ClassementEquipe>
 <div class="pd-ltr-20 xs-pd-20-10">
     <div class="min-height-200px">
         <div class="card-box mb-30">    
             <div class="pd-20">
                 <h4 class="text-blue h4">Classement par équipes</h4>
-            </div>    
-            <form action="@Url.Action("Affectation", "Equipe")" method="post" id="myForm">
-                <table class="data-table table stripe hover nowrap" >
+            </div>
+            <a href="@Url.Action("GetEquipeGagnante", "Home")"><button type="submit" class="btn btn-outline-primary" style="margin-left:850px; margin-top:-70px">Exporter Pdf</button></a>
+                <table class="data-table table stripe hover nowrap">
                     <thead>
                         <tr style="color:rgb(4, 4, 22)">
                             <th>Rang</th>
@@ -20,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var classement in @Model){
+                        @foreach(var classement in Model){
                             <tr>
                                 <td>@classement.rang</td>
                                 <td>@classement.equipe.nom</td>
@@ -29,8 +37,36 @@
                         }
                     </tbody>
                 </table>
-            </form>
         </div>
     </div>
 </div>
+
+<script src="~/src/plugins/highcharts-6.0.7/code/highcharts.js"></script>
+<script>
+    var modelData = @Html.Raw(json);
+    Highcharts.chart('chart5', {
+		title: {
+			text: 'Graphe par étape'
+		},
+		xAxis: {
+			categories: modelData.map(function(stat) { return stat.rang; })
+		},
+		series: [{
+			type: 'pie',
+			allowPointSelect: true,
+			keys: ['name', 'y', 'selected', 'sliced'],
+			data: modelData.map(function(stat) {
+				return {
+					name: stat.equipe.nom,
+					y: stat.points,
+					selected: false,
+					sliced: false
+				};
+			}),
+			dataLabels: {
+				enabled: false
+			}
+		}]
+	});
+</script>
 

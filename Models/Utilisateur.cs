@@ -171,7 +171,7 @@ public class Utilisateur{
                 con = Connect.connectDB();
                 estValid = false;
             }
-            string query = "SELECT * FROM Utilisateur WHERE id_utilisateur="+u.idUtilisateur;
+            string query = "SELECT * FROM Utilisateur WHERE id_profil="+u.idUtilisateur;
                             Console.WriteLine(query);
             using(NpgsqlCommand cmd = new NpgsqlCommand(query, con)){
                 using(NpgsqlDataReader reader = cmd.ExecuteReader()){

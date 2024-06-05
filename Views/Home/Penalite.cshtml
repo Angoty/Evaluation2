@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Liste étapes";
+    ViewData["Profil"] = "Admin";
+}
+@model List<Penalite> 
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="card-box mb-30">
+            <div class="pd-20">
+                <h4 class="text-blue h4">Liste des pénalités</h4>
+            </div>
+            <a href="@Url.Action("ListeEtapes", "Home")"><button type="submit" class="btn btn-outline-primary" style="margin-left:850px; margin-top:-70px">Ajouter Pénalité</button></a>
+            <div class="pb-20">
+            <form action="@Url.Action("SupprimerPenalite", "Home")" method="post" id="fomulaire">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                            <tr style="color:rgb(4, 4, 22)">
+                                <th>Etapes</th>
+                                <th>Equipe</th>
+                                <th>Temps de pénalité</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var liste in @Model)
+                            {
+                                <tr>
+                                    <td>@liste.etape.intitule</td>
+                                    <td>@liste.equipe.nom</td>
+                                    <td>@liste.penalite.ToString("HH:mm:ss")</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" data-toggle="modal" data-target="#confirmation-modal" class="btn btn-danger" onclick="supprimer('@liste.idPenalite')">Supprimer</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <input type="hidden" id="idEtape" name="penaliteEtape" />
+                </form>
+            </div>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(ViewBag.ErreurReset))
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErreurReset
+        </div>
+    }
+	@if (!string.IsNullOrEmpty(ViewBag.SuccesReset))
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.SuccesReset
+        </div>
+    }
+</div>
+<div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-18">
+                <h4 class="padding-top-30 mb-30 weight-500">Etes-vous sûr de vouloir le supprimer?</h4>
+                <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                        Non
+                    </div>
+                    <p><input type="hidden" id="penalite"></p>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal" onclick=submitFormAccepter()><i class="fa fa-check"></i></button>Oui
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function submitFormAccepter() {
+        var tempsLoc = document.getElementById("penalite").value;
+        document.getElementById("idEtape").value = tempsLoc;
+        console.log("ato indray")
+        document.getElementById("fomulaire").submit();
+    }
+    
+    function supprimer(penaliteId) {
+        console.log("ajax"+penaliteId)
+        $.ajax({
+            url: '/Home/Supprimer',
+            type: 'GET',
+            data: { etapeId: penaliteId },
+            success: function(id) {
+                console.log(id)
+               var penalite = document.getElementById("penalite");
+                penalite.innerHTML = "";
+                penalite.value = id.idPenalite;
+                penalite.text = id.etape
+            },
+            error: function(xhr, status, error) {
+                console.error("Une erreur s'est produite lors de la récupération des coureurs pour le penalite :", error);
+            }
+        });
+    }
+
+</script>

@@ -199,7 +199,38 @@ public class Coureur{
         return coureur;
     }
 
+    public static void GenererCategories(NpgsqlConnection con, NpgsqlTransaction transaction)
+    {
+        string sql = "INSERT INTO CategorieCoureur (id_categorie, id_coureur)"+
+                     " SELECT c.id_categorie, v.id_coureur FROM vue_categorie_coureur v INNER JOIN"+
+                     " Categorie c ON v.categorie = c.intitule;";
+        using (NpgsqlCommand command = new NpgsqlCommand(sql, con, transaction))
+        {
+            command.ExecuteNonQuery();
+        }
+    }
 
+
+    public static void ok(NpgsqlConnection con=null){
+        bool estValid=true;
+        NpgsqlTransaction transaction=null;
+        try{
+            if (con == null){
+                con = Connect.connectDB();
+                estValid = false;
+            }
+            transaction = con.BeginTransaction();
+            GenererCategories(con,transaction);
+            transaction.Commit();
+        }
+        catch (Exception e){
+            Console.WriteLine(e.Message);
+            transaction.Rollback();
+            throw e;
+        }finally{
+            if (estValid == false) con.Close();
+        }
+    }
 
 
 }

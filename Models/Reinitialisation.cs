@@ -35,8 +35,8 @@ namespace Course.Models
 
         public static void TruncateTable(NpgsqlConnection con)
         {
-            string sql = $"TRUNCATE TABLE PointCoureur, TempsCoureur, CategorieCoureur"+
-                        ", Categorie, Point, Etape, Coureur, RESTART IDENTITY";
+            string sql = $"TRUNCATE TABLE TempsCoureur, CategorieCoureur"+
+                        ", Categorie, Point, Etape, Coureur RESTART IDENTITY";
             using (NpgsqlCommand cmd = new NpgsqlCommand(sql, con))
             {
                 cmd.ExecuteNonQuery();
