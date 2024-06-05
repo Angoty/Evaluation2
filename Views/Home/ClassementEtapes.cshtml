@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Classement étapes";
+    ViewData["Profil"] = "Admin";
+}
+
+@model EtapeViewModel
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="card-box mb-30">    
+            <div class="pd-20">
+                <h4 class="text-blue h4">Classement : @Model.etape.intitule</h4>
+            </div>    
+                <table class="data-table table stripe hover nowrap" >
+                    <thead>
+                        <tr style="color:rgb(4, 4, 22)">
+                            <th>Rang</th>
+                            <th>Numero Dossard </th>
+                            <th>Nom</th>
+                            <th>Equipe</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var coureur in @Model.classementEtape){
+                            <tr>
+                                <td>@coureur.rang</td>
+                                <td>@coureur.coureur.numDossard</td>
+                                <td>@coureur.coureur.nom</td>
+                                <td>@coureur.coureur.equipe.nom</td>
+                                <td>@coureur.points</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+

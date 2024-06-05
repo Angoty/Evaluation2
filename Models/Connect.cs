@@ -9,8 +9,8 @@ namespace Course.Models
         {
             var server = "localhost";
             var port = "5432";
-            var database = "course_a_pied2";
-            var username = "postgres";
+            var database = "course_a_pied3";
+            var username = "postgres";  
             var password = "mdpprom15";
 
             var connString = $"Host={server};Port={port};Database={database};Username={username};Password={password}";

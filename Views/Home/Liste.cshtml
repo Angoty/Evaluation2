@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Liste étapes";
+    ViewData["Profil"] = "Admin";
+}
+@model EtapeViewModel
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="card-box mb-30">
+            <div class="pd-20">
+                <h4 class="text-blue h4">Liste des étapes</h4>
+            </div>
+            <a href="@Url.Action("GénérerCategorie", "Home")"><button type="submit" class="btn btn-primary" style="margin-left:850px; margin-top:-70px">Générer</button></a>
+            <div class="pb-20">
+                    <table class="data-table table stripe hover nowrap">
+                        <thead>
+                            <tr style="color:rgb(4, 4, 22)">
+                                <th>Etapes</th>
+                                <th>Kilometre</th>
+                                <th>Heure de départ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var liste in @Model.etapes)
+                            {
+                                <tr>
+                                    <td>@liste.intitule</td>
+                                    <td>@liste.kilometre</td>
+                                    <td>@liste.heureDepart.ToString("HH:mm:ss")</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a href="@Url.Action("GetClassementEtape", "Home", new{idEtape=@liste.idEtape})">Voir</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(ViewBag.ErreurReset))
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErreurReset
+        </div>
+    }
+	@if (!string.IsNullOrEmpty(ViewBag.SuccesReset))
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.SuccesReset
+        </div>
+    }
+</div>

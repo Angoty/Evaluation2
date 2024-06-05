@@ -1,7 +1,8 @@
 namespace Course.Models;
 using Npgsql;
-public class ClassementEquipe{
+public class ClassementEtape{
     private Utilisateur _equipe;
+    private Coureur _coureur;
     private int _points;
     private int _rang;
 
@@ -13,6 +14,17 @@ public class ClassementEquipe{
                 throw new Exception("Vous devez donner votre equipe.");
             }
             _equipe = value;
+        }
+    }
+
+    public Coureur coureur{
+        get { 
+            return _coureur; 
+        }set{
+            if (value == null){
+                throw new Exception("Vous devez donner votre coureur.");
+            }
+            _coureur = value;
         }
     }
 
@@ -37,33 +49,36 @@ public class ClassementEquipe{
         }
     }
 
-    public ClassementEquipe(){}
-    public ClassementEquipe(Utilisateur equipe, int points, int rang){
+    public ClassementEtape(){}
+    public ClassementEtape(Utilisateur equipe, Coureur coureur, int points, int rang){
         this.equipe = equipe;
+        this.coureur=coureur;
         this.points=points;
         this.rang=rang;
     }
 
-    public List<ClassementEquipe> GetClassementEquipe(NpgsqlConnection con=null){
+    public List<ClassementEtape> GetClassementEtape(int id, NpgsqlConnection con=null){
         bool estValid = true;
-        ClassementEquipe? classement = null;
-        List<ClassementEquipe> classements = new List<ClassementEquipe>();
+        ClassementEtape? classement = null;
+        List<ClassementEtape> classements = new List<ClassementEtape>();
         try{
             if (con == null){
                 con = Connect.connectDB();
                 estValid = false;
             }
-            string query = "SELECT * FROM v_equipe_classement";
+            string query = "SELECT * FROM v_classement_equipe_Etape2 WHERE id_etape="+id;
                             Console.WriteLine(query);
             using(NpgsqlCommand cmd = new NpgsqlCommand(query, con)){
                 using(NpgsqlDataReader reader = cmd.ExecuteReader()){
                     while (reader.Read())
                     {
                         int idEquipe = reader.GetInt32(reader.GetOrdinal("id_equipe"));
-                        int total = reader.GetInt32(reader.GetOrdinal("points_equipe"));
+                        int points = reader.GetInt32(reader.GetOrdinal("points"));
+                        int idCoureur = reader.GetInt32(reader.GetOrdinal("id_coureur"));
                         int rang = reader.GetInt32(reader.GetOrdinal("position"));
                         Utilisateur c  = Utilisateur.getById(idEquipe);
-                        classement = new ClassementEquipe(c, total, rang);
+                        Coureur coureur = Coureur.getById(idCoureur);
+                        classement = new ClassementEtape(c, coureur, points, rang);
                         classements.Add(classement);
                     }
                 }
@@ -77,36 +92,4 @@ public class ClassementEquipe{
         }
         return classements;
     }
-
-    public ClassementEquipe GetEquipeGagnant(NpgsqlConnection con=null){
-        bool estValid = true;
-        ClassementEquipe? classement = null;
-        try{
-            if (con == null){
-                con = Connect.connectDB();
-                estValid = false;
-            }
-            string query = "SELECT * FROM v_equipe_gagnante";
-                            Console.WriteLine(query);
-            using(NpgsqlCommand cmd = new NpgsqlCommand(query, con)){
-                using(NpgsqlDataReader reader = cmd.ExecuteReader()){
-                    while (reader.Read())
-                    {
-                        int idEquipe = reader.GetInt32(reader.GetOrdinal("id_equipe"));
-                        int total = reader.GetInt32(reader.GetOrdinal("points_equipe"));
-                        int rang = reader.GetInt32(reader.GetOrdinal("position"));
-                        Utilisateur c  = Utilisateur.getById(idEquipe);
-                        classement = new ClassementEquipe(c, total, rang);
-                    }
-                }
-            }
-        }catch(Exception e){
-            throw e;
-        }finally{
-            if (estValid == false){
-                con.Close();
-            }
-        }
-        return classement;
-    }
-}
+}   

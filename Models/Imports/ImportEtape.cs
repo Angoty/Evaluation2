@@ -11,12 +11,12 @@ public class ImportEtape{
 
     public ImportEtape(){}
     public ImportEtape(string etape, string kilometre, string nbCoureur, string rangEtape, string dateDepart, string heureDepart){
-        this.etape=etape.Trim();
-        this.kilometre=kilometre.Trim();
-        this.nbCoureur=nbCoureur.Trim();
-        this.rangEtape=rangEtape.Trim();
-        this.dateDepart=dateDepart.Trim();
-        this.heureDepart=heureDepart.Trim();
+        this.etape=etape;
+        this.kilometre=kilometre;
+        this.nbCoureur=nbCoureur;
+        this.rangEtape=rangEtape;
+        this.dateDepart=dateDepart;
+        this.heureDepart=heureDepart;
     }
 
     public static void insertDirectTemporaire(List<ImportEtape> listes,NpgsqlConnection con,NpgsqlTransaction transaction)

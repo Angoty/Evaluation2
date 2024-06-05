@@ -1,5 +1,5 @@
-CREATE DATABASE course_a_pied2;
-\c course_a_pied2;
+CREATE DATABASE course_a_pied3;
+\c course_a_pied3;
  
 CREATE TABLE Genre(
     id_genre SERIAL PRIMARY KEY,
